@@ -13,6 +13,9 @@ import javax.persistence.Id;
 import javax.persistence.OneToMany;
 import javax.persistence.Table;
 
+import javax.validation.constraints.NotBlank;
+import javax.validation.constraints.Size;
+
 @Entity
 @Table(name="USER")
 public class User {
@@ -20,6 +23,9 @@ public class User {
 	@Id
 	@GeneratedValue(strategy = GenerationType.AUTO)
 	private int id;
+	
+	@NotBlank(message = "Name Field Cannot Be Empty")
+	@Size(min = 3,max = 20,message = "Name Should Be Atleast 3 Letters Max 20")
 	private String name;
 	@Column(unique = true)
 	private String email;
@@ -109,7 +115,13 @@ public class User {
 	public void setContacts(List<Contact> contacts) {
 		this.contacts = contacts;
 	}
-	
-	
+
+	@Override
+	public String toString() {
+		return "User [id=" + id + ", name=" + name + ", email=" + email + ", password=" + password + ", role=" + role
+				+ ", enabled=" + enabled + ", image=" + image + ", about=" + about + ", contacts=" + contacts + "]";
+	}
+
+
 	
 }
