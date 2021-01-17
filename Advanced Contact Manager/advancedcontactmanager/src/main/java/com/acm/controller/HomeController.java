@@ -4,6 +4,7 @@ import javax.servlet.http.HttpSession;
 import javax.validation.Valid;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
@@ -17,16 +18,16 @@ import com.acm.model.User;
 import com.acm.service.ContactService;
 import com.acm.utill.Message;
 
-import net.bytebuddy.implementation.bytecode.Throw;
-
 @Controller
 public class HomeController {
 
+	
 	@Autowired
-	private UserRepository repo;
+	private BCryptPasswordEncoder passwordEncoder;
 	
 	@Autowired
 	private ContactService service;
+
 	
 	
 	@GetMapping("/")
@@ -70,7 +71,7 @@ public class HomeController {
 		user.setRole("ROLE_USER");
 		user.setEnabled(true);
 		user.setImage("default.png");
-		
+		user.setPassword(passwordEncoder.encode(user.getPassword()));
 		
 		System.out.println("agree:"+agreement);
 		System.out.println("user:"+user);
@@ -90,8 +91,15 @@ public class HomeController {
 	}
 
 
-
-
+//Login Handler
+	
+	@GetMapping("/signin")
+	public String login(Model model) {
+		model.addAttribute("title","Login Page - ACM");
+			
+		return "Login";
+		
+	}
 
 
 }

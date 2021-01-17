@@ -7,11 +7,12 @@
 
     <!-- Bootstrap CSS -->
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
+	<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.2/css/all.min.css" integrity="sha512-HK5fgLBL+xu6dm/Ii3z4xhlSUyZgTT9tuc/hSrtw6uzJOvgRr2a9jyxxT1ely+B+xFAmJKVSTbpM/CuL7qxO8w==" crossorigin="anonymous" />
 		<link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.3.1/css/all.css" integrity="sha384-mzrmE5qonljUremFsqc01SB46JvROS7bZs3IO2EmfFsd15uHvIt+Y8vEf7N7fWAU" crossorigin="anonymous">
 	<link rel="stylesheet" th:href="@{/css/style.css}" />
 	
 
-    <title th:text="${title}" >Base Html</title>
+    <title th:text="${title}" >Normal Base Html</title>
   </head>
   <body>
     
@@ -27,35 +28,17 @@
     
     <ul class="navbar-nav ml-auto text-uppercase ">
       <li class="nav-item active">
-        <a class="nav-link" th:href="@{/}">Home <span class="sr-only">(current)</span></a>
+        <a class="nav-link" th:href="@{/user/index}">Home <span class="sr-only">(current)</span></a>
       </li>
+     
+     
       
-      <li class="nav-item">
-        <a class="nav-link" href="#">About</a>
-      </li>
-      
-      <li class="nav-item dropdown">
-        <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-          Dropdown
-        </a>
-        <div class="dropdown-menu" aria-labelledby="navbarDropdown">
-          <a class="dropdown-item" href="#">Action</a>
-          <a class="dropdown-item" href="#">Another action</a>
-          <div class="dropdown-divider"></div>
-          <a class="dropdown-item" href="#">Something else here</a>
-        </div>
-      </li>
-      
-      <li class="nav-item">
-        <a class="nav-link disabled" href="#">Video No 17 time.22:42 </a>
+       <li class="nav-item">
+        <a class="nav-link " href="#"><span th:text="${user.name}" ></span></a>
       </li>
       
        <li class="nav-item">
-        <a class="nav-link " href="#" th:href="@{/signin}">Login</a>
-      </li>
-      
-       <li class="nav-item">
-        <a class="nav-link "  th:href="@{/signup}">Sign Up</a>
+        <a class="nav-link "  th:href="@{/logout}">Logout</a>
       </li>
       
     </ul>
@@ -66,17 +49,35 @@
 <!-- this is end of navbar -->
 
     
-		  
-		    
-    
-    <div th:replace="${content}" ></div>
-    
-    
-    
-    
-    
+<!-- 		this is sidebar	   -->
 
-    <!-- Optional JavaScript -->
+		<div class="sidebar">
+		
+		<span onclick="toggleSidebar()" class="crossBtn">&times;</span>
+		
+		<a href="" th:href="@{/user/index}" class="item"><i class="fas fa-home"></i> Home</a>
+		<a href=""  class="item"><i class="fas fa-address-book"></i> All Contacts</a>
+		<a href="" th:href="@{/user/add-contact}" class="item"><i class="fas fa-user-plus"></i> Add Contact</a>
+		<a href="" class="item"><i class="fas fa-user-circle"></i> Profile</a>
+		<a href=""  class="item"><i class="fas fa-cogs"></i> Settings</a>
+		<a href="" th:href="@{/logout}" class="item"><i class="fas fa-sign-out-alt"></i> Logout</a>
+		
+		<div class="divider"></div>
+		
+		</div>
+		
+		
+		
+		
+		    
+    <div class="content">
+    
+    <i onclick="toggleSidebar()" class="fas fa-bars m-3"></i>
+    
+     <div th:replace="${content}" ></div>
+    </div>
+   
+        <!-- Optional JavaScript -->
     <!-- jQuery first, then Popper.js, then Bootstrap JS -->
     <script src="https://code.jquery.com/jquery-3.2.1.slim.min.js" integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN" crossorigin="anonymous"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js" integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q" crossorigin="anonymous"></script>
