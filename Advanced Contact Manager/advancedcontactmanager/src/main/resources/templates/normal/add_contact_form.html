@@ -7,13 +7,13 @@
 <body>
 	
 	<section>
-	<div class="my-card">
+	<div class="my-card mr-4">
 		<div class="card-body">
 			
 			<h1 class="text-center">Add Contact</h1>
 				<div class="container-fluid mt-1">
 				
-					<div class="col-md-10 offset-md-1">
+					<div class="col-md-8 offset-md-2">
 					
 					<form action="#"
 					 th:object="${contact}"
@@ -24,21 +24,96 @@
 					 >
 					
 					<div class="container text-center">   
+				
+<!-- 				name field -->
 					<div class="input-group ">
 					
 						<div class="input-group-prepend">
-						<div  class="input-group-text ">@ </div>
+						<div  class="input-group-text "><i class="fa fa-plus"></i></div>
 						  
 					</div>
-					<input class="form-control" type="text" id="firstname" name="name" placeholder="Enter Name Here"/>
+					
+					<input required class="form-control" type="text" id="name" name="name" placeholder="Enter Name Here"/>
+					
+					</div>
+					
+					<!-- 				Second name field -->
+					
+					<div class="input-group mt-3 ">
+					
+						<div class="input-group-prepend">
+						<div  class="input-group-text"><i class="fas fa-user-alt"></i></div>
+						  
+					</div>
+					<input required class="form-control" type="text" id="secondName" name="secondName" placeholder="Enter Second Name Here"/>
 					
 					</div>
 					
 					
+					<!-- 				phone field -->
+					
+					<div class="input-group mt-3 ">
+					
+						<div class="input-group-prepend">
+						<div  class="input-group-text"><i class="fas fa-phone"></i></div>
+						  
+					</div>
+					<input class="form-control" type="number" required id="phone" name="phone" placeholder="Enter phone No Here"/>
+					
+					</div>
+					
+					<!-- 				email field -->
+					
+					<div class="input-group mt-3 ">
+					
+						<div class="input-group-prepend">
+						<div  class="input-group-text"> @ </div>
+						  
+					</div>
+					<input required class="form-control" type="email" id="email" name="email" placeholder="Enter email Here"/>
 					
 					</div>
 					
 					
+					<!-- 				work field -->
+					
+					<div class="input-group mt-3 ">
+					
+						<div class="input-group-prepend">
+						<div  class="input-group-text"> <i class="fa fa-briefcase"></i> </div>
+						  
+					</div>
+					<input class="form-control" type="text" id="work" name="work" placeholder="Enter Work Here"/>
+					
+					</div>
+					
+					
+					<!-- 				about field -->
+					
+					<div class="form-group mt-3 ">
+					
+						<textarea  placeholder="Enter about Here" class="form-control" name="about" id="about" rows="5"></textarea>
+					</div>
+					
+					
+<!-- 					image field -->
+					
+					<div class="file mt-3">
+						<input  class="form-control" type="file" name="profileImage"/>
+					
+					</div>
+				
+					
+					
+					
+					</div>
+					
+											
+					<div class="container text-center mt-4">
+					
+					<button class="btn btn-outline-primary btn-block">Save</button>
+					
+					</div>
 					
 					
 					
@@ -55,6 +130,12 @@
 	</div>
 	
 	
+	<script src="https://cdn.tiny.cloud/1/no-api-key/tinymce/5/tinymce.min.js" referrerpolicy="origin"></script>
+	 <script>
+      tinymce.init({
+        selector: '#about'
+      });
+    </script>
 	</section>
 	
 </body>

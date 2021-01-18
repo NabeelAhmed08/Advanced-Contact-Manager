@@ -156,6 +156,15 @@ margin-left: 4px;
 	
 }
 
+.my-profile-sm{
+	width: 35px;
+	height: 35px;
+	object-fit:cover;
+	border-radius: 50%;
+	border-color: #e5eaf5;
+	
+}
+
 
 
 

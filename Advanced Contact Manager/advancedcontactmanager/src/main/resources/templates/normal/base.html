@@ -17,7 +17,7 @@
   <body>
     
 <!--     this is navbar -->
-<nav class="navbar navbar-expand-lg navbar-dark bg-primary">
+<nav class=" navbar navbar-expand-lg navbar-dark bg-primary">
 
   <a class="navbar-brand" href="#">Advanced Contact Manager </a>
   <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
@@ -51,12 +51,12 @@
     
 <!-- 		this is sidebar	   -->
 
-		<div class="sidebar">
+		<div class="sidebar ">
 		
 		<span onclick="toggleSidebar()" class="crossBtn">&times;</span>
 		
 		<a href="" th:href="@{/user/index}" class="item"><i class="fas fa-home"></i> Home</a>
-		<a href=""  class="item"><i class="fas fa-address-book"></i> All Contacts</a>
+		<a href=""    th:href="@{/user/view-contacts/1}"  class="item"><i class="fas fa-address-book"></i> All Contacts</a>
 		<a href="" th:href="@{/user/add-contact}" class="item"><i class="fas fa-user-plus"></i> Add Contact</a>
 		<a href="" class="item"><i class="fas fa-user-circle"></i> Profile</a>
 		<a href=""  class="item"><i class="fas fa-cogs"></i> Settings</a>
@@ -70,9 +70,17 @@
 		
 		
 		    
-    <div class="content">
+    <div class="content ">
     
     <i onclick="toggleSidebar()" class="fas fa-bars m-3"></i>
+    
+    
+<div th:if="${session.message}" th:classappend="${session.message.type}" class="alert " role="alert">
+							<p class=" text-center" th:text="${session.message.content}" ></p>
+							
+							<th:block th:text="${#session.removeAttribute('message')}" ></th:block>
+							
+							</div>
     
      <div th:replace="${content}" ></div>
     </div>

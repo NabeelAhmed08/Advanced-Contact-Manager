@@ -17,6 +17,7 @@ public class Contact {
 	private int cId;
 	private String name;
 	private String secondName;
+	private String phone;
 	private String email;
 	private String work;
 	private String image;
@@ -74,6 +75,16 @@ public class Contact {
 	public void setAbout(String about) {
 		this.about = about;
 	}
+	public String getPhone() {
+		return phone;
+	}
+	public void setPhone(String phone) {
+		this.phone = phone;
+	}
+	
+	
+	
+	
 	
 	
 	
