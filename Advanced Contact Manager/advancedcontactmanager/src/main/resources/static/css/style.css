@@ -162,8 +162,49 @@ margin-left: 4px;
 	object-fit:cover;
 	border-radius: 50%;
 	border-color: #e5eaf5;
-	
 }
+
+.my-profile-lg{
+	width: 200px;
+	height: 200px;
+	object-fit:cover;
+	border-radius: 50%;
+	border-color: #e5eaf5;
+}
+
+.my-profile-m{
+	width: 100px;
+	height: 100px;
+	object-fit:cover;
+	border-radius: 50%;
+	border-color: #e5eaf5;
+}
+
+.dash{
+	width: 1000px;
+	height: 500px;
+	object-fit:cover;
+	display: block;
+}
+
+/*Search field*/
+.search-container{
+	position: relative;
+}
+
+.search-result{
+	position: absolute;
+	background: white;
+	width: 100%;
+	padding: 10px;
+	border: 0.1px solid gray;
+	 box-shadow: 5px 10px 8px #888888;
+	 display: none;
+}
+
+
+
+
 
 
 

@@ -58,7 +58,7 @@
 		<a href="" th:href="@{/user/index}" class="item"><i class="fas fa-home"></i> Home</a>
 		<a href=""    th:href="@{/user/view-contacts/1}"  class="item"><i class="fas fa-address-book"></i> All Contacts</a>
 		<a href="" th:href="@{/user/add-contact}" class="item"><i class="fas fa-user-plus"></i> Add Contact</a>
-		<a href="" class="item"><i class="fas fa-user-circle"></i> Profile</a>
+		<a href="" th:href="@{/user/profile}" class="item"><i class="fas fa-user-circle"></i> Profile</a>
 		<a href=""  class="item"><i class="fas fa-cogs"></i> Settings</a>
 		<a href="" th:href="@{/logout}" class="item"><i class="fas fa-sign-out-alt"></i> Logout</a>
 		
@@ -74,13 +74,13 @@
     
     <i onclick="toggleSidebar()" class="fas fa-bars m-3"></i>
     
-    
-<div th:if="${session.message}" th:classappend="${session.message.type}" class="alert " role="alert">
+   <div class="container  text-center"> 
+<div th:if="${session.message}" th:classappend="${session.message.type}" class=" alert " role="alert">
+							
 							<p class=" text-center" th:text="${session.message.content}" ></p>
 							
 							<th:block th:text="${#session.removeAttribute('message')}" ></th:block>
-							
-							</div>
+	</div>						</div>
     
      <div th:replace="${content}" ></div>
     </div>
@@ -91,5 +91,32 @@
     <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js" integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q" crossorigin="anonymous"></script>
     <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js" integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl" crossorigin="anonymous"></script>
     <script  th:src="@{/js/script.js}" ></script>
+     <script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>
+	     <script>
+    function deleteContact(cId){
+    	
+    	swal({
+    		  title: "Are you sure?",
+    		  text: "You want to delete this contact.. !!",
+    		  icon: "warning",
+    		  buttons: true,
+    		  dangerMode: true,
+    		})
+    		.then((willDelete) => {
+    		  if (willDelete) {
+    			  
+    			  window.location="/user/delete/"+cId;
+    			  
+    		    swal("Poof! Your Contact has been deleted!", {
+    		      icon: "success",
+    		    });
+    		  } else {
+    		    swal("Your Contact is safe!");
+    		  }
+    		});
+    }
+    
+    </script>
+    
   </body>
 </html>

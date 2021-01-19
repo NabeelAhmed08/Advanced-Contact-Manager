@@ -10,7 +10,7 @@
 	<div class="my-card mr-4">
 		<div class="card-body">
 			
-			<h1 class="text-center">Add Contact</h1>
+			<h1 class="text-center">Update Contact</h1>
 				<div class="container-fluid mt-1">
 				
 					<div class="col-md-8 offset-md-2">
@@ -19,11 +19,13 @@
 					 th:object="${contact}"
 					 enctype="multipart/form-data"
 					 method="post"
-					 th:action="@{/user/process-contact}"
+					 th:action="@{/user/process-update}"
 					 class="mt-2"
 					 >
 					
 					<div class="container text-center">   
+				
+				<input type="hidden" th:value="${contact.cId}" name="cId" />
 				
 <!-- 				name field -->
 					<div class="input-group ">
@@ -33,7 +35,7 @@
 						  
 					</div>
 					
-					<input required class="form-control" type="text" id="name" name="name" placeholder="Enter Name Here"/>
+					<input th:value="${contact.name}" required class="form-control" type="text" id="name" name="name" placeholder="Enter Name Here"/>
 					
 					</div>
 					
@@ -45,7 +47,7 @@
 						<div  class="input-group-text"><i class="fas fa-user-alt"></i></div>
 						  
 					</div>
-					<input required class="form-control" type="text" id="secondName" name="secondName" placeholder="Enter Second Name Here"/>
+					<input th:value="${contact.secondName}" required class="form-control" type="text" id="secondName" name="secondName" placeholder="Enter Second Name Here"/>
 					
 					</div>
 					
@@ -58,7 +60,7 @@
 						<div  class="input-group-text"><i class="fas fa-phone"></i></div>
 						  
 					</div>
-					<input class="form-control" type="number" required id="phone" name="phone" placeholder="Enter phone No Here"/>
+					<input th:value="${contact.phone}" class="form-control" type="number" required id="phone" name="phone" placeholder="Enter phone No Here"/>
 					
 					</div>
 					
@@ -70,7 +72,7 @@
 						<div  class="input-group-text"> @ </div>
 						  
 					</div>
-					<input required class="form-control" type="email" id="email" name="email" placeholder="Enter email Here"/>
+					<input th:value="${contact.email}" required class="form-control" type="email" id="email" name="email" placeholder="Enter email Here"/>
 					
 					</div>
 					
@@ -83,7 +85,7 @@
 						<div  class="input-group-text"> <i class="fa fa-briefcase"></i> </div>
 						  
 					</div>
-					<input class="form-control" type="text" id="work" name="work" placeholder="Enter Work Here"/>
+					<input th:value="${contact.work}" class="form-control" type="text" id="work" name="work" placeholder="Enter Work Here"/>
 					
 					</div>
 					
@@ -92,11 +94,14 @@
 					
 					<div class="form-group mt-3 ">
 					
-						<textarea  placeholder="Enter about Here" class="form-control" name="about" id="about" rows="5"></textarea>
+						<textarea th:text="${contact.about}" placeholder="Enter about Here" class="form-control" name="about" id="about" rows="5"></textarea>
+					</div>
 					</div>
 					
-					
 <!-- 					image field -->
+						<div class="container text-center">
+	   	
+	   	 <img class= my-profile-m src="" th:src="@{'/img/'+${contact.image}}" alt="profile image" />
 					
 					<div class="file mt-3">
 						<input  class="form-control" type="file" name="profileImage"/>
@@ -111,7 +116,7 @@
 											
 					<div class="container text-center mt-4">
 					
-					<button type="submit" class="btn btn-outline-primary btn-block">Save</button>
+					<button  type="submit" class="btn btn-outline-primary btn-block">Save</button>
 					
 					</div>
 					

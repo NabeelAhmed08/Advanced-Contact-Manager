@@ -7,6 +7,7 @@ import java.nio.file.Paths;
 import java.nio.file.StandardCopyOption;
 import java.security.Principal;
 import java.util.List;
+import java.util.Optional;
 
 import javax.servlet.http.HttpSession;
 
@@ -17,6 +18,7 @@ import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -29,6 +31,7 @@ import com.acm.dao.ContactRepository;
 import com.acm.dao.UserRepository;
 import com.acm.model.Contact;
 import com.acm.model.User;
+import com.acm.service.ContactServiceImpl;
 import com.acm.utill.Message;
 
 @Controller
@@ -40,6 +43,10 @@ public class UserController {
 	
 	@Autowired
 	ContactRepository contactRepo;
+	
+	@Autowired
+	ContactServiceImpl service;
+	
 	
 	@ModelAttribute
 	public void addCommonData(Model model ,Principal principal) {
@@ -61,8 +68,7 @@ public class UserController {
 		model.addAttribute("title","Add Contact - ACM");
 		model.addAttribute("contact",new Contact());
 		
-		return "normal/add_contact_form";
-		
+		return "normal/add_contact_form";	
 	}
 	
 //	processing add contact form
@@ -124,7 +130,129 @@ public class UserController {
 		
 	}
 	
+//	get contact by id
+	
+	@GetMapping("/contact/{cId}")
+	public String viewContactById(@PathVariable("cId") Integer cId, Model model ,Principal principal) {
+	
+			String userName =  principal.getName();
+		 	User user = userRepo.findByEmail(userName);		 	
+		 	Optional<Contact> optional =	contactRepo.findById(cId);
+	  if(optional.isPresent()) {
+				model.addAttribute("title","Contact Details - ACM");
+			  Contact contact = optional.get();
+				if (user.getId()==contact.getUser().getId()) {
+					model.addAttribute("contact",contact);
+				}
+				
+				return "normal/contact_detail";
+		  }
+	  		else {
+			model.addAttribute("title","404 Error - ACM");
+			
+			return "normal/404error";
+		}
+	}
+	
+	@GetMapping("/delete/{cId}")
+	public String DeleteContactById(@PathVariable("cId") Integer cId,
+			Model model ,
+			Principal principal,
+			HttpSession session) {
+	
+			String userName =  principal.getName();
+		 	User user = userRepo.findByEmail(userName);
+		 	
+		 	Optional<Contact> optional =	contactRepo.findById(cId);
+			  if(optional.isPresent()) {
+				  
+						
+					  Contact contact = optional.get();
+					 service.deleteContact(contact);
+					 
+		 	session.setAttribute("message", new Message("Contact deleted Sucessfully","alert-success"));
+				 		
+	}
+			return "redirect:/user/view-contacts/1";
+	}
+
+	@PostMapping("/update-contact/{cId}")
+	public String updateContact(
+			@PathVariable("cId") Integer cId,
+			Model model) {
+		
+		Optional<Contact> optional = contactRepo.findById(cId);		
+		  Contact contact = optional.get();
+		  
+		model.addAttribute("title","Update Contact - ACM");
+		model.addAttribute("contact",contact);
+		return "normal/update_contact";
+
+	}
+
+//	process update form
+	
+	//process-update
+	@PostMapping("/process-update")
+	public String updateContactProcessing(
+			@ModelAttribute Contact contact,
+			@RequestParam("profileImage") MultipartFile file,
+			Principal principal,
+			HttpSession session,
+			Model model ) {
+		
+
+		String userName =  principal.getName();
+	 	User user = userRepo.findByEmail(userName);
+	 	Contact oldContact = contactRepo.findById(contact.getcId()).get();
+		
+		try {
+			
+		 	
+//		 	    processing image
+		 	if(!file.isEmpty())
+		 	{
+//		 		delete old pic
+		 		
+		 		File deleteFile =	new ClassPathResource("static/img/").getFile();
+		 		File file_old = new File(deleteFile, oldContact.getImage());
+		 		file_old.delete();
+		 		
+		 		
+//		 		updating with new image
+		 		
+		 		File saveFile =	new ClassPathResource("static/img/").getFile();
+		 		Path path = Paths.get(saveFile.getAbsolutePath()+File.separator+file.getOriginalFilename());
+		 		Files.copy(file.getInputStream(), path,StandardCopyOption.REPLACE_EXISTING);
+		 		 	
+		 		contact.setImage(file.getOriginalFilename());
+		 	}
+
+		 	else {
+		 		contact.setImage(oldContact.getImage());	
+		 		}
+		 	
+		 	
+		 	contact.setUser(user);
+		 	contactRepo.save(contact);
+		 	session.setAttribute("message", new Message("Contact Updated Sucessfully", "alert-success"));
+
+		} 	
+		 	catch (Exception e) {
+				e.printStackTrace();
+			}
+		 	
+	
+		return "redirect:/user/contact/"+contact.getcId();	
+	}
 	
 	
+	@GetMapping("/profile")
+	public String myProfile(Model model) {
+		model.addAttribute("title","My Profile - ACM");
+		
+		return "normal/profile";
+		
+	}
 	
 }
