@@ -46,7 +46,7 @@ Once they login, they can add delete update and find all their contacts
 
 
 
-
+<p float="left">
 
 <img src="./E-R diagram/Img/Home.png" width="350" height="" alt ="home_page" title="home_page">
 
@@ -62,3 +62,4 @@ Once they login, they can add delete update and find all their contacts
  <img src="./E-R diagram/Img/contact_details.png" width="350" height="" alt ="contact_details" title="contact_details">
  <img src="./E-R diagram/Img/addcontact.png" width="350" height="" alt ="addcontact" title="addcontact">
   <img src="./E-R diagram/Img/user_profile.png" width="350" height="" alt ="user_profile" title="user_profile">
+</p>
