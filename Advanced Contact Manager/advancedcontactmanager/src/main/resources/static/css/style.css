@@ -11,6 +11,8 @@ body{
 
 .bg-Second{
 	background: #d0bdf4!important;
+	text-decoration: none;
+	color:black;
 }
 
 .bg-third{
